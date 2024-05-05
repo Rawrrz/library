@@ -45,10 +45,6 @@ function createBook()
     addBookToLibrary(myLibrary, bookNew);
 }
 
-createBook();
-createBook();
-createBook();
-displayBooks(myLibrary);
 
 
 
