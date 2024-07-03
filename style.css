@@ -1,0 +1,58 @@
+*
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#root
+{
+    display: grid;
+    width: 90vw;
+    height: 90vh;
+    grid-template: 20% 80% / 30% 70%;
+}
+
+#sidebar
+{
+    padding: 5%;
+    background-color: rgb(159, 156, 180);
+    grid-row: 1 / 3;
+}
+
+#searchbar
+{
+    padding: 5%;
+    background-color: rgb(114, 104, 180);
+}
+
+#searchbar #tags
+{
+    display: flex;
+    gap: 2%;
+}
+
+#main
+{
+    padding: 5%;
+    background-color: rgb(77, 67, 145);
+}
+
+#addBook
+{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 50%;
+    background-color: white;
+
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+#addBook p
+{
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bolder;
+}
