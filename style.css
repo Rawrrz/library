@@ -1,14 +1,17 @@
 *
 {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
+body
+{}
 
 #root
 {
     display: grid;
-    width: 90vw;
-    height: 90vh;
+    width: 100vw;
+    height: 900px;
     grid-template: 20% 80% / 30% 70%;
     font-size: 1em;
 }
@@ -39,7 +42,16 @@
 #sidebar .menu-option
 {
     display: flex;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 15px;
     gap: 10%;
+}
+
+#sidebar .menu-option:hover
+{
+    background-color: rgb(224, 224, 224);
 }
 
 #sidebar p
@@ -69,41 +81,50 @@
 
 #searchbar #tags
 {
+    padding-top: 20px;
     display: flex;
     gap: 2%;
 }
 
 #searchbar .tag
 {
-    background-color: white;
+    background-color: rgb(232, 232, 232);
     padding: 1.6%;
     border-radius: 30px;
 }
 
 #searchbar .selected
 {
-    background-color: slateblue;
+    background-color: rgb(0, 0, 0);
     color: white;
 }
 
 #main
 {
+    display: grid;
+    justify-content: start;
+    grid-template: 200px / auto auto auto;
     background-color: rgb(236, 242, 242);
-    padding: 5%;
+    padding: 2%;
+    gap: 5%;
 }
 
 #addBook
 {
     display: flex;
     flex-direction: column;
-    width: 20%;
-    height: 50%;
-    background-color: white;
+    background-color: rgb(232, 232, 232);
     border-radius: 10%;
-
+    height: 381px;
+    width: 274px;
     justify-content: center;
     align-items: center;
     padding: 1em;
+}
+
+#addBook:hover
+{
+    background-color: rgb(160, 166, 172);
 }
 
 #addBook p
@@ -111,4 +132,75 @@
     margin: 0;
     font-size: 1.5em;
     font-weight: bolder;
+}
+
+.book
+{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    border-radius: 10%;
+    height: 381px;
+    width: 250px;
+    justify-content: center;
+    align-items: center;
+    padding: 1.2em;
+}
+
+.book:hover
+{
+    background-color: white;
+}
+
+.book img
+{
+    width: 111%;
+    height: 99%;
+}
+
+/* Section2 of BOOK Card */
+
+.section2
+{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.section2 button
+{
+    color: white;
+    background-color: black;
+    border-style: none;
+    padding: 10px;
+    width: 70px;
+    border-radius: 10px;
+}
+
+.author
+{
+    color: rgb(103, 103, 103);
+    font-size: 23px;
+    font-weight: 100;
+}
+
+.pages
+{
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.tools
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tools img
+{
+    width: 30px;
+    height: 30px;
 }
