@@ -8,6 +8,26 @@
       <title>Library</title>
   </head>
   <body>
+    <!-- MODAL POPUP -->
+    <dialog id="modalBox">
+      <form action="">
+        <h1>Add book</h1>
+        <!-- Inputs -->
+        <input type="text" placeholder="Title"><br>
+        <input type="text" placeholder="Author">
+
+        <!-- Checkbox -->
+        <div id="checkbox">
+          <input type="number" placeholder="Pages">
+          <h3>Read</h3>
+          <input type="checkbox">
+        </div>
+
+        <!-- Add Book -->
+        <button onclick="hideDialog()" id="add-book-button">Add Book</button>
+      </form>
+    </dialog> 
+
     <div id="root">
         <!-- SIDEBAR -->
         <div id="sidebar">
@@ -19,7 +39,7 @@
           
           <!-- SIDEBAR BODY -->
           <div id="sidebar-body">
-            <div class="menu-option">
+            <div onclick="showDialog()" class="menu-option">
               <p>+</p>
               <p>Add book</p>
             </div>
@@ -34,22 +54,22 @@
             </div>
 
             <!-- TAG SECTION -->
-            <div id="tags">
+            <div class="tags">
                 <p class="tag selected">All</p>
-                <p class="tag">Liked</p>
-                <p class="tag">Unread</p>
-                <p class="tag">Read</p>
+                <p class="tag unselected">Liked</p>
+                <p class="tag unselected">Unread</p>
+                <p class="tag unselected">Read</p>
             </div>
         </div>
 
         <div id="main">
-            <div id="addBook">
+            <div onclick="showDialog()" id="addBook">
               <p>+</p>
               <p>Add book</p>
             </div>
 
             <div class="book">
-              <img src="https://gifdb.com/images/high/profile-pic-smiley-face-x-eyes-neon-animaiton-yof3qulanl6vbltv.gif" alt="">
+              <img src="images/book1.jpg" alt="">
               <div class="section2">
                   <h2>Hack The World</h2>
                   <p class="author">RawrrzV</p>
