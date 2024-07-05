@@ -10,22 +10,23 @@
   <body>
     <!-- MODAL POPUP -->
     <dialog id="modalBox">
-      <form action="">
+      <form action="#" onsubmit="addBookToLibrary()">
+        <p onclick="hideDialog()" id="closeButton">X</p>
         <h1>Add book</h1>
         <!-- Inputs -->
-        <input type="text" placeholder="Title"><br>
-        <input type="text" placeholder="Author">
-        <input type="text" placeholder="Cover Link">
+        <input id="formTitle" type="text" placeholder="Title" required><br>
+        <input id="formAuthor" type="text" placeholder="Author" required>
+        <input id="formCoverLink" type="text" placeholder="Cover Link" required>
 
         <!-- Checkbox -->
         <div id="checkbox">
-          <input type="number" placeholder="Pages">
+          <input id="pageCount" type="number" placeholder="Pages" required>
           <h3>Read</h3>
-          <input type="checkbox">
+          <input id="haveRead" type="checkbox" value="read">
         </div>
 
         <!-- Add Book -->
-        <button onclick="hideDialog()" id="add-book-button">Add Book</button>
+        <button onclick="addBookToLibrary()" id="add-book-button">Add Book</button>
       </form>
     </dialog> 
 

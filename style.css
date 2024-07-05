@@ -43,6 +43,7 @@
     padding-bottom: 15px;
     border-radius: 15px;
     gap: 10%;
+    cursor: pointer;
 }
 
 #sidebar .menu-option:hover
@@ -122,6 +123,7 @@
     justify-content: center;
     align-items: center;
     padding: 1em;
+    cursor: pointer;
 }
 
 #addBook:hover
@@ -208,6 +210,7 @@
 }
 
 
+/* MODAL BOX */
 #modalBox
 {
     left: 34%;
@@ -246,5 +249,17 @@
     border-radius: 40px;
     padding: 25px;
     border-style: none;
+    cursor: pointer;
 }
+
+#closeButton
+{
+    position: relative;
+    left: 100%;
+    bottom: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    
+}
+
 

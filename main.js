@@ -3,15 +3,10 @@
 const myLibrary = [];
 
 
-
-
-
-
-
 ///// FUNCTIONS /////
 
 // RENDER FUNCTIONS
-function renderBooks(myLibrary)
+function renderBooks()
 {
     // Create and render every book
     for(let i = 0; i < myLibrary.length; i++)
@@ -26,6 +21,7 @@ function renderBooks(myLibrary)
         // Create image
         const image = document.createElement("img");
         image.src = myLibrary[i].coverLink;
+        image.alt = "book-cover";
 
         // Create section2 container
         const section2 = document.createElement("div");
@@ -52,7 +48,10 @@ function renderBooks(myLibrary)
 
         // Create button
         const btn = document.createElement("button");
-        btn.innerHTML = "Read";
+        if(myLibrary[i].read == true)
+            btn.innerHTML = "Read";
+        else
+            btn.innerHTML = "Unread";
         
         // Create images
         const heart = document.createElement("img");
@@ -83,6 +82,7 @@ function renderBooks(myLibrary)
 // Constructor
 function Book(name, author, pageCount, read, coverLink)
 {
+    this.bookID = myLibrary.length+1;
     this.name = name;
     this.author = author;
     this.pageCount = pageCount;
@@ -93,10 +93,28 @@ function Book(name, author, pageCount, read, coverLink)
 }
 
 // Add book to library
-function addBookToLibrary(name, author, pageCount, read, coverLink)
+function addBookToLibraryJS(name, author, pageCount, read, coverLink)
 {
     let book = new Book(name, author, pageCount, read, coverLink);
     myLibrary.push(book);
+}
+
+// Add book to library via form
+function addBookToLibrary()
+{
+    const formTitle = document.getElementById("formTitle").value;
+    const formAuthor = document.getElementById("formAuthor").value;
+    const formCoverLink = document.getElementById("formCoverLink").value;
+
+    const pageCount = document.getElementById("pageCount").value;
+    const haveRead = document.getElementById("haveRead").checked;
+
+    let book = new Book(formTitle, formAuthor, pageCount, haveRead, formCoverLink);
+    myLibrary.push(book);
+
+    console.log(book);
+    hideDialog();
+    renderBooks();
 }
 
 
@@ -111,9 +129,8 @@ function hideDialog()
     document.getElementById('modalBox').close();
 }
 
-addBookToLibrary("Hack The World", "RawrrzV", 145, true, "images/book1.jpg");
-addBookToLibrary("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
-addBookToLibrary("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
-addBookToLibrary("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
-addBookToLibrary("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
+///// MAIN PROGRAM /////
+
+addBookToLibraryJS("Hack The World", "RawrrzV", 145, true, "images/book1.jpg");
+addBookToLibraryJS("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
 renderBooks(myLibrary);
