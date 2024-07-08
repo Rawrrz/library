@@ -4,6 +4,8 @@ let book1 = new Book("Hack The World", "RawrrzV", 145, true, "images/book1.jpg")
 let book2 = new Book("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
 const library = [book1, book2];
 const main = document.getElementById("main");
+const search = document.getElementById("searchInput");
+let searchValue = "";
 
 // Tags
 const tagList = document.getElementsByClassName("tag");
@@ -12,20 +14,34 @@ let selectedTag = "All";
 
 ///// FUNCTIONS /////
 
-// RENDER FUNCTIONS
-function renderBooks(tag)
+// Search event listener
+search.addEventListener("input", () =>
 {
+    searchValue = search.value;
+    clearAndRender();
+});
+
+// RENDER FUNCTIONS
+function renderBooks(tag, searchResult)
+{
+    for(let i = 0; i < library.length; i++)
+        library[i].index = i;
+
     const myLibrary = library.filter((item) => {
-        if(tag == "All")
-            return item;
-        else if(tag == "Liked")
-            return item.liked;
-        else if(tag == "Unread")
-            return !item.read;
-        else
-            return item.read;
+        if(item.name.toLowerCase().startsWith(searchResult.toLowerCase()))
+        {
+            if(tag === "All")
+                return item;
+            else if(tag === "Liked" )
+                return item.liked;
+            else if(tag === "Unread")
+                return !item.read;
+            else if(tag === "Read")
+                return item.read;
+        }
     });
 
+    console.log(myLibrary);
 
     // Create and render every book
     for(let i = 0; i < myLibrary.length; i++)
@@ -111,14 +127,14 @@ function renderBooks(tag)
 
         trash.addEventListener("click", () =>
         {
-            myLibrary.splice(i, 1);
+            library.splice(library[myLibrary[i].index], 1);
             const size = main.classList.length;
             // Clear main
             while(main.children.length > 1)
             {
                 main.removeChild(main.children[1]);
             }
-            renderBooks(tag);
+            clearAndRender();
         });
 
         // Add children to book div
@@ -144,6 +160,7 @@ function renderBooks(tag)
 // Constructor
 function Book(name, author, pageCount, read, coverLink)
 {
+    this.index;
     this.name = name;
     this.author = author;
     this.pageCount = pageCount;
@@ -230,7 +247,7 @@ function clearAndRender()
         }
     
     // Rerender main
-    renderBooks(selectedTag);
+    renderBooks(selectedTag, searchValue);
 }
 
 tagList[0].addEventListener("click", () => {
@@ -271,4 +288,5 @@ function hideDialog()
 }
 
 ///// MAIN PROGRAM /////
-renderBooks(selectedTag);
+setTag("All");
+renderBooks(selectedTag, searchValue);
