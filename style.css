@@ -262,4 +262,11 @@
     
 }
 
+/* Liked Toggle */
+.liked
+{
+    background-color: red;
+    border-radius: 15px;
+}
+
 

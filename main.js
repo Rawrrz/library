@@ -1,6 +1,9 @@
 
 ///// DATA /////
-const myLibrary = [];
+let book1 = new Book("Hack The World", "RawrrzV", 145, true, "images/book1.jpg");
+let book2 = new Book("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
+const myLibrary = [book1, book2];
+const main = document.getElementById("main");
 
 
 ///// FUNCTIONS /////
@@ -8,12 +11,10 @@ const myLibrary = [];
 // RENDER FUNCTIONS
 function renderBooks()
 {
+
     // Create and render every book
     for(let i = 0; i < myLibrary.length; i++)
     {
-        // Get main container
-        const main = document.getElementById("main");
-
         // Create book container
         const book = document.createElement("div");
         book.className = "book";
@@ -39,7 +40,7 @@ function renderBooks()
 
         // Create pages
         const pages = document.createElement("p");
-        pages.innerHTML = myLibrary[i].pageCount;
+        pages.innerHTML = myLibrary[i].pageCount + " pages";
         pages.className = "pages"
 
         // Create tools div
@@ -52,12 +53,53 @@ function renderBooks()
             btn.innerHTML = "Read";
         else
             btn.innerHTML = "Unread";
+
+        btn.addEventListener("click", ()=>
+        {
+            if(myLibrary[i].read)
+            {
+                myLibrary[i].read = false;
+                btn.innerHTML = "unread";
+            }
+            else
+            {
+                myLibrary[i].read = true;
+                btn.innerHTML = "read";
+            }
+        })
         
         // Create images
         const heart = document.createElement("img");
         heart.src = "icons/heart.svg";
+
+        heart.addEventListener("click", () => {
+            if(!myLibrary[i].liked)
+            {
+                heart.classList.toggle("liked");
+                myLibrary[i].liked = true;
+            }
+            else
+            {
+                heart.classList.toggle("liked");
+                myLibrary[i].liked = false;
+            }
+        });
+
+
         const trash = document.createElement("img");
         trash.src = "icons/trash.svg";
+
+        trash.addEventListener("click", () =>
+        {
+            myLibrary.splice(i, 1);
+            const size = main.classList.length;
+            // Clear main
+            while(main.children.length > 1)
+            {
+                main.removeChild(main.children[1]);
+            }
+            renderBooks();
+        });
 
         // Add children to book div
         book.appendChild(image);
@@ -82,7 +124,6 @@ function renderBooks()
 // Constructor
 function Book(name, author, pageCount, read, coverLink)
 {
-    this.bookID = myLibrary.length+1;
     this.name = name;
     this.author = author;
     this.pageCount = pageCount;
@@ -103,17 +144,29 @@ function addBookToLibraryJS(name, author, pageCount, read, coverLink)
 function addBookToLibrary()
 {
     const formTitle = document.getElementById("formTitle").value;
+    document.getElementById("formTitle").value = "";
     const formAuthor = document.getElementById("formAuthor").value;
+    document.getElementById("formAuthor").value = "";
     const formCoverLink = document.getElementById("formCoverLink").value;
+    document.getElementById("formCoverLink").value = "";
 
     const pageCount = document.getElementById("pageCount").value;
+    document.getElementById("pageCount").value = "";
+
     const haveRead = document.getElementById("haveRead").checked;
+    document.getElementById("haveRead").checked = false;
 
     let book = new Book(formTitle, formAuthor, pageCount, haveRead, formCoverLink);
     myLibrary.push(book);
 
     console.log(book);
     hideDialog();
+
+    while(main.children.length > 1)
+    {
+        main.removeChild(main.children[1]);
+    }
+
     renderBooks();
 }
 
@@ -130,7 +183,4 @@ function hideDialog()
 }
 
 ///// MAIN PROGRAM /////
-
-addBookToLibraryJS("Hack The World", "RawrrzV", 145, true, "images/book1.jpg");
-addBookToLibraryJS("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
-renderBooks(myLibrary);
+renderBooks();
