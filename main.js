@@ -2,15 +2,30 @@
 ///// DATA /////
 let book1 = new Book("Hack The World", "RawrrzV", 145, true, "images/book1.jpg");
 let book2 = new Book("V For Vandetta", "Error404", 120, true, "images/book2.jpg");
-const myLibrary = [book1, book2];
+const library = [book1, book2];
 const main = document.getElementById("main");
+
+// Tags
+const tagList = document.getElementsByClassName("tag");
+let selectedTag = "All";
 
 
 ///// FUNCTIONS /////
 
 // RENDER FUNCTIONS
-function renderBooks()
+function renderBooks(tag)
 {
+    const myLibrary = library.filter((item) => {
+        if(tag == "All")
+            return item;
+        else if(tag == "Liked")
+            return item.liked;
+        else if(tag == "Unread")
+            return !item.read;
+        else
+            return item.read;
+    });
+
 
     // Create and render every book
     for(let i = 0; i < myLibrary.length; i++)
@@ -66,11 +81,14 @@ function renderBooks()
                 myLibrary[i].read = true;
                 btn.innerHTML = "read";
             }
+            clearAndRender();
         })
         
         // Create images
         const heart = document.createElement("img");
         heart.src = "icons/heart.svg";
+        if(myLibrary[i].liked)
+            heart.classList.toggle("liked");
 
         heart.addEventListener("click", () => {
             if(!myLibrary[i].liked)
@@ -83,6 +101,8 @@ function renderBooks()
                 heart.classList.toggle("liked");
                 myLibrary[i].liked = false;
             }
+
+            clearAndRender();
         });
 
 
@@ -98,7 +118,7 @@ function renderBooks()
             {
                 main.removeChild(main.children[1]);
             }
-            renderBooks();
+            renderBooks(tag);
         });
 
         // Add children to book div
@@ -167,8 +187,76 @@ function addBookToLibrary()
         main.removeChild(main.children[1]);
     }
 
-    renderBooks();
+    renderBooks(selectedTag);
 }
+
+// Event Listeners For Tags
+function setTag(tagValue)
+{
+    let selected;
+
+    if(tagValue == "All")
+    {
+        selected = 0;
+    }
+    else if(tagValue == "Liked")
+    {
+        selected = 1;
+    }
+    else if(tagValue == "Unread")
+    {
+        selected = 2;
+    }
+    else
+    {
+        selected = 3;
+    }
+
+    tagList[selected].classList.toggle("selected");
+
+    for(let i = 0; i < tagList.length; i++)
+    {
+        if(i !== selected)
+            tagList[i].classList.remove("selected");
+    }
+}
+
+function clearAndRender()
+{
+    // Clear main
+    while(main.children.length > 1)
+        {
+            main.removeChild(main.children[1]);
+        }
+    
+    // Rerender main
+    renderBooks(selectedTag);
+}
+
+tagList[0].addEventListener("click", () => {
+    setTag("All");
+    selectedTag = "All";
+
+    clearAndRender();
+});
+tagList[1].addEventListener("click", () => {
+    setTag("Liked");
+    selectedTag = "Liked";
+
+    clearAndRender();
+});
+tagList[2].addEventListener("click", () => {
+    setTag("Unread");
+    selectedTag = "Unread";
+
+    clearAndRender();
+});
+tagList[3].addEventListener("click", () => {
+    setTag("Read");
+    selectedTag = "Read";
+
+    clearAndRender();
+});
 
 
 // DIALOG FUNCTIONS
@@ -183,4 +271,4 @@ function hideDialog()
 }
 
 ///// MAIN PROGRAM /////
-renderBooks();
+renderBooks(selectedTag);
